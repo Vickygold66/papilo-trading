@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Papilo Gift Card & Crypto Trading</title>
+    <link href="/https:/fonts.googleapis.com/css?family=Inter:400,600,700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', Arial, sans-serif;
+            background: linear-gradient(135deg, #fff 0%, #f5e9da 40%, #e3f2fd 100%);
+            margin: 0;
+            color: #222;
+        }
+        header {
+            background: #fff;
+            border-bottom: 2px solid #e3f2fd;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 1.2rem 2rem;
+        }
+        .logo {
+            font-size: 2rem;
+            font-weight: 700;
+            color: #1976d2;
+            letter-spacing: 1px;
+        }
+        nav {
+            display: flex;
+            gap: 1.2rem;
+        }
+        nav button, .cta-btn {
+            background: #1976d2;
+            color: #fff;
+            border: none;
+            border-radius: 6px;
+            padding: 0.7rem 1.3rem;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+        nav button:hover, .cta-btn:hover {
+            background: #a67c52;
+        }
+        .section {
+            max-width: 1100px;
+            margin: 2.5rem auto;
+            background: #fff;
+            border-radius: 12px;
+            box-shadow: 0 2px 16px rgba(30, 64, 175, 0.07);
+            padding: 2rem 2.5rem;
+        }
+        h1, h2 {
+            color: #1976d2;
+            margin-bottom: 0.7rem;
+        }
+        .highlight {
+            color: #a67c52;
+            font-weight: 700;
+        }
+        .market-table {
+            width: 100%;
+            border-collapse: collapse;
+            background: #f9f9f9;
+        }
+        .market-table th, .market-table td {
+            padding: 0.7rem;
+            border-bottom: 1px solid #e0e0e0;
+        }
+        .market-table th {
+            background: #e3f2fd;
+        }
+        .market-table tr:last-child td {
+            border-bottom: none;
+        }
+        .escrow-note {
+            margin-top: 1.2rem;
+            color: #d32f2f;
+            font-weight: 600;
+        }
+        .referral-box {
+            background: #e3f2fd;
+            border-radius: 8px;
+            padding: 1.2rem;
+            margin: 1.5rem 0;
+        }
+        .contact-info {
+            margin-top: 1.2rem;
+            font-size: 1.1rem;
+        }
+        .dashboard {
+            display: none;
+            margin-top: 2rem;
+        }
+        .dashboard.active {
+            display: block;
+        }
+        .bank-list, .withdraw-section {
+            margin: 1rem 0;
+        }
+        .bank-list ul {
+            padding-left: 1.2rem;
+        }
+        .trusted-badge {
+            background: #a67c52;
+            color: #fff;
+            padding: 0.3rem 1rem;
+            border-radius: 20px;
+            font-size: 1rem;
+            font-weight: 600;
+            margin-left: 1rem;
+        }
+        @media (max-width: 700px) {
+            .section { padding: 1rem; }
+            header { flex-direction: column; gap: 1rem; }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <span class="logo">PapiloTrade <span class="trusted-badge">Trusted & Secure</span></span>
+        <nav>
+            <button onclick="showSection('home')">Home</button>
+            <button onclick="showSection('about')">About</button>
+            <button onclick="showSection('p2p-marketplace')">P2P Market</button>
+            <button onclick="showSection('contact')">Contact Us</button>
+            <button onclick="showSection('login')">Login</button>
+            <button onclick="showSection('signup')">Sign Up</button>
+            <button id="logoutBtn" style="display:none;" onclick="logout()">Logout</button>
+        </nav>
+    </header>
+
+    <!-- Home Section -->
+    <section class="section" id="home">
+        <h1>Trade Gift Cards & Crypto Worldwide</h1>
+        <p>
+            Welcome to <span class="highlight">PapiloTrade</span>, the most trusted platform to buy and sell gift cards and cryptocurrencies from any country. Earn <span class="highlight">15%</span> on every trade. Buy with crypto, sell for cash, and enjoy a secure P2P marketplace with escrow protection.
+        </p>
+        <div style="margin:1.5rem 0;">
+            <button class="cta-btn" onclick="showSection('p2p-marketplace')">P2P Marketplace</button>
+            <button class="cta-btn" onclick="showSection('buy-sell')">Buy/Sell Gift Cards & Crypto</button>
+        </div>
+        <div class="referral-box">
+            <strong>Refer & Earn:</strong> Invite friends and family and earn <span class="highlight">3%</span> on every trade your referees make!
+            <br>
+            <button class="cta-btn" onclick="showSection('referral')">Get Referral Link</button>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section class="section" id="about" style="display:none;">
+        <h2>About PapiloTrade</h2>
+        <p>
+            PapiloTrade is founded by <span class="highlight">Omowaye Victor</span> (CEO), providing a secure, professional, and global platform for trading gift cards and cryptocurrencies. Our system ensures:
+        </p>
+        <ul>
+            <li>15% gain on every trade for the platform</li>
+            <li>3% referral bonus on every trade made by your referees</li>
+            <li>Escrow-protected P2P marketplace to prevent scams</li>
+            <li>Buy gift cards with crypto and vice versa, connected to eligible platforms</li>
+            <li>Direct selling to admin (CEO) option</li>
+            <li>Withdrawal and bank management for all users</li>
+        </ul>
+    </section>
+
+    <!-- Buy/Sell Section -->
+    <section class="section" id="buy-sell" style="display:none;">
+        <h2>Buy & Sell Gift Cards / Crypto</h2>
+        <div style="margin-bottom:1.2rem;">
+            <button class="cta-btn" onclick="alert('Buy Gift Card with Crypto functionality coming soon!')">Buy Gift Card with Crypto</button>
+            <button class="cta-btn" onclick="alert('Buy Crypto with Gift Card functionality coming soon!')">Buy Crypto with Gift Card</button>
+            <button class="cta-btn" onclick="alert('Sell Gift Card functionality coming soon!')">Sell Gift Card</button>
+            <button class="cta-btn" onclick="alert('Sell Crypto functionality coming soon!')">Sell Crypto</button>
+        </div>
+        <p>
+            All trades attract a <span class="highlight">15%</span> platform fee. Enjoy seamless and secure transactions!
+        </p>
+    </section>
+
+    <!-- P2P Marketplace Section -->
+    <section class="section" id="p2p-marketplace" style="display:none;">
+        <h2>P2P Marketplace</h2>
+        <p>
+            Buy and sell crypto or gift cards directly with other users. All trades are protected by our secure escrow system to prevent scams.
+        </p>
+        <div style="margin-bottom:1.5rem;">
+            <button class="cta-btn" onclick="alert('List your crypto/gift card for sale functionality coming soon!')">List Crypto/Gift Card for Sale</button>
+            <button class="cta-btn" onclick="alert('Sell directly to Admin functionality coming soon!')">Sell Directly to Admin (CEO)</button>
+        </div>
+        <table class="market-table">
+            <thead>
+                <tr>
+                    <th>Seller</th>
+                    <th>Asset</th>
+                    <th>Amount</th>
+                    <th>Rate</th>
+                    <th>Payment Methods</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>admin</td>
+                    <td>USDT</td>
+                    <td>$500</td>
+                    <td>₦1500/$</td>
+                    <td>Bank Transfer</td>
+                    <td><button class="cta-btn" onclick="alert('Buy from user123 functionality coming soon!')">Buy</button></td>
+                </tr>
+                <tr>
+                    <td>admin</td>
+                    <td>Amazon Gift Card</td>
+                    <td>$100</td>
+                    <td>₦1300/$</td>
+                    <td>Crypto, Bank</td>
+                    <td><button class="cta-btn" onclick="alert('Buy from giftcardpro functionality coming soon!')">Buy</button></td>
+                </tr>
+                <!-- More rows can be dynamically added here -->
+            </tbody>
+        </table>
+        <div class="escrow-note">
+            All trades are protected by escrow. Funds are only released after both parties confirm the transaction. No room for scams!
+        </div>
+    </section>
+
+    <!-- Referral Section -->
+    <section class="section" id="referral" style="display:none;">
+        <h2>Referral Program</h2>
+        <p>
+            Share your referral link and earn <span class="highlight">3%</span> on every trade your referees make!
+        </p>
+        <input type="text" id="refLink" value="https://papilotrade.com/ref?user=papilotrade" readonly style="width:80%;padding:0.5rem;">
+        <button class="cta-btn" onclick="copyReferral()">Copy Link</button>
+        <div id="copyMsg" style="color:green;margin-top:0.7rem;display:none;">Copied!</div>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="section" id="contact" style="display:none;">
+        <h2>Contact Us</h2>
+        <div class="contact-info">
+            <strong>Phone:</strong> +2347013384963<br>
+            <strong>Email:</strong> tvic5321@gmail.com<br>
+            <strong>CEO:</strong> Omowaye Victor
+        </div>
+    </section>
+
+    <!-- Login Section -->
+    <section class="section" id="login" style="display:none;">
+        <h2>Login</h2>
+        <form onsubmit="login(event)">
+            <input type="text" id="loginUser" placeholder="Username" required style="padding:0.5rem;width:60%;margin-bottom:0.7rem;"><br>
+            <input type="password" id="loginPass" placeholder="Password" required style="padding:0.5rem;width:60%;margin-bottom:0.7rem;"><br>
+            <button class="cta-btn" type="submit">Login</button>
+        </form>
+    </section>
+
+    <!-- Signup Section -->
+    <section class="section" id="signup" style="display:none;">
+        <h2>Sign Up</h2>
+        <form onsubmit="signup(event)">
+            <input type="text" id="signupUser" placeholder="Username" required style="padding:0.5rem;width:60%;margin-bottom:0.7rem;"><br>
+            <input type="email" id="signupEmail" placeholder="Email" required style="padding:0.5rem;width:60%;margin-bottom:0.7rem;"><br>
+            <input type="password" id="signupPass" placeholder="Password" required style="padding:0.5rem;width:60%;margin-bottom:0.7rem;"><br>
+            <button class="cta-btn" type="submit">Sign Up</button>
+        </form>
+    </section>
+
+    <!-- User Dashboard (after login) -->
+    <section class="section dashboard" id="dashboard">
+        <h2>Welcome, <span id="userDisplay"></span></h2>
+        <div>
+            <button class="cta-btn" onclick="showBank()">Add Bank</button>
+            <button class="cta-btn" onclick="showWithdraw()">Withdraw</button>
+        </div>
+        <div class="bank-list" id="bankList" style="display:none;">
+            <h3>Your Banks</h3>
+            <ul id="banks"></ul>
+            <form onsubmit="addBank(event)">
+                <input type="text" id="bankName" placeholder="Bank Name" required style="padding:0.5rem;">
+                <input type="text" id="bankAcc" placeholder="Account Number" required style="padding:0.5rem;">
+                <button class="cta-btn" type="submit">Add Bank</button>
+            </form>
+        </div>
+        <div class="withdraw-section" id="withdrawSection" style="display:none;">
+            <h3>Withdraw Funds</h3>
+            <form onsubmit="withdraw(event)">
+                <input type="number" id="withdrawAmount" placeholder="Amount" required style="padding:0.5rem;">
+                <select id="withdrawBank" required style="padding:0.5rem;">
+                    <option value="">Select Bank</option>
+                </select>
+                <button class="cta-btn" type="submit">Withdraw</button>
+            </form>
+        </div>
+    </section>
+
+    <script>
+        // Section navigation
+        function showSection(id) {
+            document.querySelectorAll('.section').forEach(s => s.style.display = 'none');
+            document.getElementById(id).style.display = '';
+            if (id === 'dashboard') document.getElementById('dashboard').classList.add('active');
+            else document.getElementById('dashboard').classList.remove('active');
+        }
+
+        // Referral copy
+        function copyReferral() {
+            const ref = document.getElementById('refLink');
+            ref.select();
+            ref.setSelectionRange(0, 99999);
+            document.execCommand('copy');
+            document.getElementById('copyMsg').style.display = 'block';
+            setTimeout(() => document.getElementById('copyMsg').style.display = 'none', 1500);
+        }
+
+        // Simple login/signup simulation
+        let loggedIn = false, username = '';
+        function login(e) {
+            e.preventDefault();
+            username = document.getElementById('loginUser').value;
+            loggedIn = true;
+            document.getElementById('userDisplay').textContent = username;
+            document.getElementById('logoutBtn').style.display = '';
+            showSection('dashboard');
+        }
+        function signup(e) {
+            e.preventDefault();
+            username = document.getElementById('signupUser').value;
+            loggedIn = true;
+            document.getElementById('userDisplay').textContent = username;
+            document.getElementById('logoutBtn').style.display = '';
+            showSection('dashboard');
+        }
+        function logout() {
+            loggedIn = false;
+            username = '';
+            document.getElementById('logoutBtn').style.display = 'none';
+            showSection('home');
+        }
+
+        // Bank management
+        let banks = [];
+        function showBank() {
+            document.getElementById('bankList').style.display = '';
+            document.getElementById('withdrawSection').style.display = 'none';
+            renderBanks();
+        }
+        function addBank(e) {
+            e.preventDefault();
+            const name = document.getElementById('bankName').value;
+            const acc = document.getElementById('bankAcc').value;
+            banks.push({name, acc});
+            renderBanks();
+            document.getElementById('bankName').value = '';
+            document.getElementById('bankAcc').value = '';
+        }
+        function renderBanks() {
+            const ul = document.getElementById('banks');
+            ul.innerHTML = '';
+            banks.forEach(b => {
+                const li = document.createElement('li');
+                li.textContent = `${b.name} - ${b.acc}`;
+                ul.appendChild(li);
+            });
+            // Update withdraw bank select
+            const sel = document.getElementById('withdrawBank');
+            sel.innerHTML = '<option value="">Select Bank</option>';
+            banks.forEach((b, i) => {
+                const opt = document.createElement('option');
+                opt.value = i;
+                opt.textContent = `${b.name} - ${b.acc}`;
+                sel.appendChild(opt);
+            });
+        }
+
+        // Withdraw
+        function showWithdraw() {
+            document.getElementById('withdrawSection').style.display = '';
+            document.getElementById('bankList').style.display = 'none';
+            renderBanks();
+        }
+        function withdraw(e) {
+            e.preventDefault();
+            const amt = document.getElementById('withdrawAmount').value;
+            const bankIdx = document.getElementById('withdrawBank').value;
+            if (bankIdx === '') {
+                alert('Please select a bank.');
+                return;
+            }
+            alert(`Withdrawal of ${amt} to ${banks[bankIdx].name} - ${banks[bankIdx].acc} initiated!`);
+            document.getElementById('withdrawAmount').value = '';
+        }
+
+        // Show dashboard only if logged in
+        document.addEventListener('DOMContentLoaded', () => {
+            if (loggedIn) {
+                document.getElementById('logoutBtn').style.display = '';
+                showSection('dashboard');
+            } else {
+                showSection('home');
+            }
+        });
+    </script>
+</body>
+</html>

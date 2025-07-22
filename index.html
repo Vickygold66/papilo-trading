@@ -138,8 +138,22 @@
             <button onclick="showSection('about')">About</button>
             <button onclick="showSection('contact')">Contact Us</button>
             <button onclick="showSection('referral')">Referral</button>
-            <button onclick="showSection('signup')">Sign Up</button>
-            <button onclick="showSection('login')">Login</button>
+            <button onclick="showSection('signup')">
+<form id="signupForm" onsubmit="return verifyOtp()">
+  <input type="text" id="phoneNumber" placeholder="Enter phone/email" required><br>
+  <button type="button" onclick="sendOtp()">Get OTP</button><br><br>
+
+  <input type="text" id="otpInput" placeholder="Enter OTP" required><br>
+  <button type="submit">Verify & Login</button>
+</form></button>
+            <button onclick="showSection('login')">
+<form id="loginForm" onsubmit="return verifyOtp()">
+  <input type="text" id="phoneNumber" placeholder="Enter phone/email" required><br>
+  <button type="button" onclick="sendOtp()">Get OTP</button><br><br>
+
+  <input type="text" id="otpInput" placeholder="Enter OTP" required><br>
+  <button type="submit">Verify & Login</button>
+</form></button>
             <button id="logoutBtn" onclick="logout()" style="display:none;">Logout</button>
             <button id="adminBtn" onclick="showSection('admin')" style="display:none;">Admin</button>
         </nav>

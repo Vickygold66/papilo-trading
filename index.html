@@ -121,14 +121,45 @@
 <body>
     <header>
         <span class="logo">PapiloTrade <span class="trusted-badge">Trusted & Secure</span></span>
-        <nav>
-            <button onclick="showSection('home')">Home</button>
-            <button onclick="showSection('about')">About</button>
-            <button onclick="showSection('p2p-marketplace')">P2P Market</button>
-            <button onclick="showSection('contact')">Contact Us</button>
-            <button onclick="showSection('login')">Login</button>
-            <button onclick="showSection('signup')">Sign Up</button>
-            <button id="logoutBtn" style="display:none;" onclick="logout()">Logout</button>
+    </nav>
+            <form id="listingform">
+            <input type="text" id="seller" placeholder="Your name" required>
+  <input type="text" id="asset" placeholder="Asset (e.g. USDT)" required>
+  <input type="number" id="amount" placeholder="Amount in $" required>
+  <input type="text" id="rate" placeholder="Rate (₦/USD)" required>
+  <input type="text" id="payment" placeholder="Payment Method" required>
+  <button type="submit">Submit Listing</button>
+</form>
+     <form id="listingForm">
+  <input type="text" id="seller" placeholder="Your name" required>
+  <input type="text" id="asset" placeholder="Asset (e.g. USDT)" required>
+  <input type="number" id="amount" placeholder="Amount in $" required>
+  <input type="text" id="rate" placeholder="Rate (₦/USD)" required>
+  <input type="text" id="payment" placeholder="Payment Method" required>
+  <button type="submit">Submit Listing</button>
+</form>
+        <table id="offersTable">
+  <tr>
+    <th>Seller</th><th>Asset</th><th>Amount</th><th>Rate</th><th>Payment</th>
+  </tr>
+</table>
+
+<script>
+  const listings = JSON.parse(localStorage.getItem("listings")) || [];
+  const table = document.getElementById("offersTable");
+
+  listings.forEach(listing => {
+    const row = document.createElement("tr");
+    row.innerHTML = `
+      <td>${listing.seller}</td>
+      <td>${listing.asset}</td>
+      <td>$${listing.amount}</td>
+      <td>₦${listing.rate}/$</td>
+      <td>${listing.payment}</td>
+    `;
+    table.appendChild(row);
+  });
+</script>
         </nav>
     </header>
 
@@ -169,10 +200,11 @@
     <section class="section" id="buy-sell" style="display:none;">
         <h2>Buy & Sell Gift Cards / Crypto</h2>
         <div style="margin-bottom:1.2rem;">
-            <button class="cta-btn" onclick="alert('Buy Gift Card with Crypto functionality coming soon!')">Buy Gift Card with Crypto</button>
-            <button class="cta-btn" onclick="alert('Buy Crypto with Gift Card functionality coming soon!')">Buy Crypto with Gift Card</button>
-            <button class="cta-btn" onclick="alert('Sell Gift Card functionality coming soon!')">Sell Gift Card</button>
-            <button class="cta-btn" onclick="alert('Sell Crypto functionality coming soon!')">Sell Crypto</button>
+            <a href ="list.html"><button>Buy Gift Card with Crypto</button></a>
+            <a href ="list.html"><button>Buy crypto with giftcard</button></a>
+            <a href ="list.html"><button>sell Gift Card to Crypto</button></a>
+            <a href ="list.html"><button>sell cryto </button></a>
+            <a href ="list.html"><button>list cryto/giftcard</button></a>
         </div>
         <p>
             All trades attract a <span class="highlight">15%</span> platform fee. Enjoy seamless and secure transactions!
@@ -247,12 +279,33 @@
     </section>
 
     <!-- Login Section -->
-    <section class="section" id="login" style="display:none;">
-        <h2>Login</h2>
-        <form onsubmit="login(event)">
-            <input type="text" id="loginUser" placeholder="Username" required style="padding:0.5rem;width:60%;margin-bottom:0.7rem;"><br>
-            <input type="password" id="loginPass" placeholder="Password" required style="padding:0.5rem;width:60%;margin-bottom:0.7rem;"><br>
-            <button class="cta-btn" type="submit">Login</button>
+   <!-- Include Firebase SDK -->
+<script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-auth.js"></script>
+<script>
+  const firebaseConfig = {
+    apiKey: "your-api-key",
+    authDomain: "your-app.firebaseapp.com",
+    // ... more config
+  };
+
+  const app = firebase.initializeApp(firebaseConfig);
+  const auth = firebase.auth();
+
+  function login() {
+    const email = document.getElementById("email").value;
+    const password = document.getElementById("password").value;
+
+    auth.signInWithEmailAndPassword(email, password)
+      .then((userCredential) => {
+        alert("Login successful!");
+        window.location.href = "dashboard.html";
+      })
+      .catch((error) => {
+        alert("Login failed: " + error.message);
+      });
+  }
+</script>
         </form>
     </section>
 

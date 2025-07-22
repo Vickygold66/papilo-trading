@@ -1,8 +1,9 @@
-html lang="en">
+<!DOCTYPE html>
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Papilo Gift Card & Crypto Trading</title>
+    <title>PapiloTrade - P2P Gift Card & Crypto Marketplace</title>
     <link href="https://fonts.googleapis.com/css?family=Inter:400,600,700&display=swap" rel="stylesheet">
     <style>
         body {
@@ -111,6 +112,17 @@ html lang="en">
             font-weight: 600;
             margin-left: 1rem;
         }
+        .admin-panel {
+            background: #f3f3f3;
+            border-radius: 8px;
+            padding: 1.2rem;
+            margin: 1.5rem 0;
+            border: 1px solid #1976d2;
+        }
+        .timer {
+            color: #d32f2f;
+            font-weight: bold;
+        }
         @media (max-width: 700px) {
             .section { padding: 1rem; }
             header { flex-direction: column; gap: 1rem; }
@@ -122,11 +134,14 @@ html lang="en">
         <span class="logo">PapiloTrade <span class="trusted-badge">Trusted & Secure</span></span>
         <nav>
             <button onclick="showSection('home')">Home</button>
+            <button onclick="showSection('p2p-marketplace')">P2P Marketplace</button>
             <button onclick="showSection('about')">About</button>
             <button onclick="showSection('contact')">Contact Us</button>
+            <button onclick="showSection('referral')">Referral</button>
             <button onclick="showSection('signup')">Sign Up</button>
             <button onclick="showSection('login')">Login</button>
             <button id="logoutBtn" onclick="logout()" style="display:none;">Logout</button>
+            <button id="adminBtn" onclick="showSection('admin')" style="display:none;">Admin</button>
         </nav>
     </header>
 
@@ -138,13 +153,61 @@ html lang="en">
         </p>
         <div style="margin:1.5rem 0;">
             <button class="cta-btn" onclick="showSection('p2p-marketplace')">P2P Marketplace</button>
-            <button class="cta-btn" onclick="showSection('buy-sell')">Buy/Sell Gift Cards & Crypto</button>
+            <button class="cta-btn" onclick="showSection('referral')">Referral Program</button>
         </div>
         <div class="referral-box">
             <strong>Refer & Earn:</strong> Invite friends and family and earn <span class="highlight">3%</span> on every trade your referees make!
             <br>
             <button class="cta-btn" onclick="showSection('referral')">Get Referral Link</button>
         </div>
+    </section>
+
+    <!-- P2P Marketplace Section -->
+    <section class="section" id="p2p-marketplace" style="display:none;">
+        <h2>P2P Marketplace</h2>
+        <p>
+            List your gift cards or crypto for sale at your own price. Buyers can choose their preferred seller and pay using the seller's accepted payment methods. All trades are protected by escrow and must be completed within <span class="highlight">20 minutes</span>. Platform charges a <span class="highlight">15%</span> fee per trade.
+        </p>
+        <button class="cta-btn" onclick="showListForm()">List Crypto/Gift Card for Sale</button>
+        <div id="listForm" style="display:none; margin:1rem 0;">
+            <form onsubmit="listOffer(event)">
+                <input type="text" id="asset" placeholder="Asset (e.g. USDT, Amazon GC)" required style="padding:0.5rem; margin-bottom:0.5rem; width:200px;">
+                <input type="number" id="amount" placeholder="Amount" required style="padding:0.5rem; margin-bottom:0.5rem; width:120px;">
+                <input type="text" id="rate" placeholder="Rate (e.g. ₦1500/$)" required style="padding:0.5rem; margin-bottom:0.5rem; width:140px;">
+                <input type="text" id="payment" placeholder="Payment Methods (comma separated)" required style="padding:0.5rem; margin-bottom:0.5rem; width:220px;">
+                <button class="cta-btn" type="submit">List Offer</button>
+            </form>
+        </div>
+        <table class="market-table" id="offersTable">
+            <thead>
+                <tr>
+                    <th>Seller</th>
+                    <th>Asset</th>
+                    <th>Amount</th>
+                    <th>Rate</th>
+                    <th>Payment Methods</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Offers will be dynamically inserted here -->
+            </tbody>
+        </table>
+        <div class="escrow-note" style="margin-top:1rem;">
+            All trades are protected by escrow. Complete payment and confirm within <span class="highlight">20 minutes</span> or the trade will be cancelled automatically.
+        </div>
+        <button class="cta-btn" style="margin-top:1.5rem;" onclick="contactCEO()">Contact CEO to Buy Directly</button>
+    </section>
+
+    <!-- Referral Section -->
+    <section class="section" id="referral" style="display:none;">
+        <h2>Referral Program</h2>
+        <p>
+            Share your referral link and earn <span class="highlight">3%</span> on every trade your referees make!
+        </p>
+        <input type="text" id="refLink" value="https://papilotrade.com/ref?user=papilotrade" readonly style="width:80%;padding:0.5rem;">
+        <button class="cta-btn" onclick="copyReferral()">Copy Link</button>
+        <div id="copyMsg" style="color:green;margin-top:0.7rem;display:none;">Copied!</div>
     </section>
 
     <!-- About Section -->
@@ -163,77 +226,6 @@ html lang="en">
         </ul>
     </section>
 
-    <!-- Buy/Sell Section -->
-    <section class="section" id="buy-sell" style="display:none;">
-        <h2>Buy & Sell Gift Cards / Crypto</h2>
-        <div style="margin-bottom:1.2rem;">
-            <a href="list.html"><button class="cta-btn">Buy Gift Card with Crypto</button></a>
-            <a href="list.html"><button class="cta-btn">Buy Crypto with Gift Card</button></a>
-            <a href="list.html"><button class="cta-btn">Sell Gift Card to Crypto</button></a>
-            <a href="list.html"><button class="cta-btn">Sell Crypto</button></a>
-            <a href="list.html"><button class="cta-btn">List Crypto/Gift Card</button></a>
-        </div>
-        <p>
-            All trades attract a <span class="highlight">15%</span> platform fee. Enjoy seamless and secure transactions!
-        </p>
-    </section>
-
-    <!-- P2P Marketplace Section -->
-    <section class="section" id="p2p-marketplace" style="display:none;">
-        <h2>P2P Marketplace</h2>
-        <p>
-            Buy and sell crypto or gift cards directly with other users. All trades are protected by our secure escrow system to prevent scams.
-        </p>
-        <div style="margin-bottom:1.5rem;">
-            <button class="cta-btn" onclick="alert('List your crypto/gift card for sale functionality coming soon!')">List Crypto/Gift Card for Sale</button>
-            <button class="cta-btn" onclick="alert('Sell directly to Admin functionality coming soon!')">Sell Directly to Admin (CEO)</button>
-        </div>
-        <table class="market-table">
-            <thead>
-                <tr>
-                    <th>Seller</th>
-                    <th>Asset</th>
-                    <th>Amount</th>
-                    <th>Rate</th>
-                    <th>Payment Methods</th>
-                    <th>Action</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td>admin</td>
-                    <td>USDT</td>
-                    <td>$500</td>
-                    <td>₦1500/$</td>
-                    <td>Bank Transfer</td>
-                    <td><button class="cta-btn" onclick="alert('Buy from admin functionality coming soon!')">Buy</button></td>
-                </tr>
-                <tr>
-                    <td>admin</td>
-                    <td>Amazon Gift Card</td>
-                    <td>$100</td>
-                    <td>₦1300/$</td>
-                    <td>Crypto, Bank</td>
-                    <td><button class="cta-btn" onclick="alert('Buy from admin functionality coming soon!')">Buy</button></td>
-                </tr>
-            </tbody>
-        </table>
-        <div class="escrow-note">
-            All trades are protected by escrow. Funds are only released after both parties confirm the transaction. No room for scams!
-        </div>
-    </section>
-
-    <!-- Referral Section -->
-    <section class="section" id="referral" style="display:none;">
-        <h2>Referral Program</h2>
-        <p>
-            Share your referral link and earn <span class="highlight">3%</span> on every trade your referees make!
-        </p>
-        <input type="text" id="refLink" value="https://papilotrade.com/ref?user=papilotrade" readonly style="width:80%;padding:0.5rem;">
-        <button class="cta-btn" onclick="copyReferral()">Copy Link</button>
-        <div id="copyMsg" style="color:green;margin-top:0.7rem;display:none;">Copied!</div>
-    </section>
-
     <!-- Contact Section -->
     <section class="section" id="contact" style="display:none;">
         <h2>Contact Us</h2>
@@ -250,8 +242,10 @@ html lang="en">
         <form onsubmit="login(event)">
             <input type="text" id="loginUser" placeholder="Username" required style="padding:0.5rem;width:60%;margin-bottom:0.7rem;"><br>
             <input type="password" id="loginPass" placeholder="Password" required style="padding:0.5rem;width:60%;margin-bottom:0.7rem;"><br>
+            <input type="text" id="loginOTP" placeholder="Enter OTP (sent to email/phone)" required style="padding:0.5rem;width:60%;margin-bottom:0.7rem;"><br>
             <button class="cta-btn" type="submit">Login</button>
         </form>
+        <div id="otpMsg" style="color:green;display:none;">OTP sent to your email/phone.</div>
     </section>
 
     <!-- Signup Section -->
@@ -260,9 +254,12 @@ html lang="en">
         <form onsubmit="signup(event)">
             <input type="text" id="signupUser" placeholder="Username" required style="padding:0.5rem;width:60%;margin-bottom:0.7rem;"><br>
             <input type="email" id="signupEmail" placeholder="Email" required style="padding:0.5rem;width:60%;margin-bottom:0.7rem;"><br>
+            <input type="text" id="signupPhone" placeholder="Phone Number" required style="padding:0.5rem;width:60%;margin-bottom:0.7rem;"><br>
             <input type="password" id="signupPass" placeholder="Password" required style="padding:0.5rem;width:60%;margin-bottom:0.7rem;"><br>
+            <input type="text" id="signupOTP" placeholder="Enter OTP (sent to email/phone)" required style="padding:0.5rem;width:60%;margin-bottom:0.7rem;"><br>
             <button class="cta-btn" type="submit">Sign Up</button>
         </form>
+        <div id="signupOtpMsg" style="color:green;display:none;">OTP sent to your email/phone.</div>
     </section>
 
     <!-- User Dashboard (after login) -->
@@ -293,6 +290,35 @@ html lang="en">
         </div>
     </section>
 
+    <!-- Admin Panel (CEO/Business Account) -->
+    <section class="section admin-panel" id="admin" style="display:none;">
+        <h2>Business Account (CEO Panel)</h2>
+        <p>View all trades, platform earnings, and manage users.</p>
+        <div>
+            <strong>Total Platform Earnings:</strong> <span id="platformEarnings">₦0</span>
+        </div>
+        <div style="margin-top:1rem;">
+            <h3>All Trades</h3>
+            <table class="market-table" id="allTradesTable">
+                <thead>
+                    <tr>
+                        <th>Trade ID</th>
+                        <th>Seller</th>
+                        <th>Buyer</th>
+                        <th>Asset</th>
+                        <th>Amount</th>
+                        <th>Rate</th>
+                        <th>Status</th>
+                        <th>Fee</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Trades will be dynamically inserted here -->
+                </tbody>
+            </table>
+        </div>
+    </section>
+
     <script>
         // Section navigation
         function showSection(id) {
@@ -312,28 +338,70 @@ html lang="en">
             setTimeout(() => document.getElementById('copyMsg').style.display = 'none', 1500);
         }
 
-        // Simple login/signup simulation
-        let loggedIn = false, username = '';
+        // Simple login/signup simulation with OTP
+        let loggedIn = false, username = '', isAdmin = false;
+        let users = [{username: 'admin', password: 'admin123', email: 'tvic5321@gmail.com', phone: '+2347013384963', isAdmin: true}];
+
+        function sendOTP(target) {
+            // Simulate sending OTP
+            document.getElementById(target).style.display = 'block';
+            setTimeout(() => document.getElementById(target).style.display = 'none', 2000);
+        }
+
         function login(e) {
             e.preventDefault();
-            username = document.getElementById('loginUser').value;
+            const user = document.getElementById('loginUser').value;
+            const pass = document.getElementById('loginPass').value;
+            const otp = document.getElementById('loginOTP').value;
+            const found = users.find(u => u.username === user && u.password === pass);
+            if (!found) {
+                alert('Invalid credentials.');
+                return;
+            }
+            if (otp !== '123456') {
+                alert('Invalid OTP.');
+                sendOTP('otpMsg');
+                return;
+            }
+            username = user;
             loggedIn = true;
+            isAdmin = !!found.isAdmin;
             document.getElementById('userDisplay').textContent = username;
             document.getElementById('logoutBtn').style.display = '';
+            document.getElementById('adminBtn').style.display = isAdmin ? '' : 'none';
             showSection('dashboard');
         }
         function signup(e) {
             e.preventDefault();
-            username = document.getElementById('signupUser').value;
+            const user = document.getElementById('signupUser').value;
+            const email = document.getElementById('signupEmail').value;
+            const phone = document.getElementById('signupPhone').value;
+            const pass = document.getElementById('signupPass').value;
+            const otp = document.getElementById('signupOTP').value;
+            if (users.find(u => u.username === user)) {
+                alert('Username already exists.');
+                return;
+            }
+            if (otp !== '123456') {
+                alert('Invalid OTP.');
+                sendOTP('signupOtpMsg');
+                return;
+            }
+            users.push({username: user, password: pass, email, phone, isAdmin: false});
+            username = user;
             loggedIn = true;
+            isAdmin = false;
             document.getElementById('userDisplay').textContent = username;
             document.getElementById('logoutBtn').style.display = '';
+            document.getElementById('adminBtn').style.display = 'none';
             showSection('dashboard');
         }
         function logout() {
             loggedIn = false;
             username = '';
+            isAdmin = false;
             document.getElementById('logoutBtn').style.display = 'none';
+            document.getElementById('adminBtn').style.display = 'none';
             showSection('home');
         }
 
@@ -390,14 +458,151 @@ html lang="en">
             document.getElementById('withdrawAmount').value = '';
         }
 
-        // Show dashboard only if logged in
+        // P2P Marketplace logic
+        let offers = [];
+        let trades = [];
+        let platformEarnings = 0;
+
+        function showListForm() {
+            const form = document.getElementById('listForm');
+            form.style.display = form.style.display === 'none' ? '' : 'none';
+        }
+
+        function listOffer(e) {
+            e.preventDefault();
+            if (!loggedIn) {
+                alert('Login to list an offer.');
+                return;
+            }
+            const asset = document.getElementById('asset').value;
+            const amount = document.getElementById('amount').value;
+            const rate = document.getElementById('rate').value;
+            const payment = document.getElementById('payment').value;
+            const seller = username || 'Guest';
+            offers.push({
+                seller,
+                asset,
+                amount,
+                rate,
+                payment,
+                time: Date.now()
+            });
+            renderOffers();
+            e.target.reset();
+            document.getElementById('listForm').style.display = 'none';
+        }
+
+        function renderOffers() {
+            const tbody = document.getElementById('offersTable').querySelector('tbody');
+            tbody.innerHTML = '';
+            offers.forEach((offer, idx) => {
+                const tr = document.createElement('tr');
+                tr.innerHTML = `
+                    <td>${offer.seller}</td>
+                    <td>${offer.asset}</td>
+                    <td>${offer.amount}</td>
+                    <td>${offer.rate}</td>
+                    <td>${offer.payment}</td>
+                    <td>
+                        <button class="cta-btn" onclick="initiateTrade(${idx})">Buy</button>
+                    </td>
+                `;
+                tbody.appendChild(tr);
+            });
+        }
+
+        function initiateTrade(idx) {
+            if (!loggedIn) {
+                alert('Login to initiate a trade.');
+                return;
+            }
+            const offer = offers[idx];
+            const tradeId = Math.random().toString(36).substr(2, 8);
+            const fee = Math.round(offer.amount * 0.15 * 100) / 100;
+            const trade = {
+                id: tradeId,
+                seller: offer.seller,
+                buyer: username,
+                asset: offer.asset,
+                amount: offer.amount,
+                rate: offer.rate,
+                status: 'Pending',
+                fee: fee,
+                timer: 1200 // 20 minutes in seconds
+            };
+            trades.push(trade);
+            platformEarnings += fee;
+            renderAllTrades();
+            updatePlatformEarnings();
+            alert(
+                `Trade started with ${offer.seller} for ${offer.amount} ${offer.asset} at ${offer.rate}.\n\n` +
+                `Payment methods: ${offer.payment}\n\n` +
+                `You have 20 minutes to complete this trade. Trade ID: ${tradeId}\n\n` +
+                `15% platform fee applies.`
+            );
+            startTradeTimer(tradeId);
+        }
+
+        function renderAllTrades() {
+            const tbody = document.getElementById('allTradesTable').querySelector('tbody');
+            tbody.innerHTML = '';
+            trades.forEach(trade => {
+                const tr = document.createElement('tr');
+                tr.innerHTML = `
+                    <td>${trade.id}</td>
+                    <td>${trade.seller}</td>
+                    <td>${trade.buyer}</td>
+                    <td>${trade.asset}</td>
+                    <td>${trade.amount}</td>
+                    <td>${trade.rate}</td>
+                    <td>${trade.status} <span class="timer" id="timer-${trade.id}"></span></td>
+                    <td>₦${trade.fee}</td>
+                `;
+                tbody.appendChild(tr);
+            });
+        }
+
+        function updatePlatformEarnings() {
+            document.getElementById('platformEarnings').textContent = `₦${platformEarnings}`;
+        }
+
+        function startTradeTimer(tradeId) {
+            let trade = trades.find(t => t.id === tradeId);
+            if (!trade) return;
+            function update() {
+                if (trade.status !== 'Pending') return;
+                if (trade.timer <= 0) {
+                    trade.status = 'Cancelled';
+                    renderAllTrades();
+                    return;
+                }
+                const min = Math.floor(trade.timer / 60);
+                const sec = trade.timer % 60;
+                const timerEl = document.getElementById('timer-' + tradeId);
+                if (timerEl) timerEl.textContent = ` (${min}:${sec < 10 ? '0' : ''}${sec})`;
+                trade.timer--;
+                setTimeout(update, 1000);
+            }
+            update();
+        }
+
+        // Contact CEO
+        function contactCEO() {
+            window.location.href = "mailto:tvic5321@gmail.com?subject=Buy%20Directly%20from%20CEO";
+        }
+
+        // Show dashboard/admin only if logged in
         document.addEventListener('DOMContentLoaded', () => {
             if (loggedIn) {
                 document.getElementById('logoutBtn').style.display = '';
+                document.getElementById('adminBtn').style.display = isAdmin ? '' : 'none';
                 showSection('dashboard');
             } else {
                 showSection('home');
             }
+            renderOffers();
+            renderAllTrades();
+            updatePlatformEarnings();
         });
     </script>
 </body>

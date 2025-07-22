@@ -1,22 +1,11 @@
-<!DOCTYPE html>
-<html lang="en">
+html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Papilo Gift Card & Crypto Trading</title>
-    <link href="/https:/fonts.googleapis.com/css?family=Inter:400,600,700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Inter:400,600,700&display=swap" rel="stylesheet">
     <style>
         body {
-            <span class="logo">PapiloTrade <span class="trusted-badge">Trusted & Secure</span></span>
-    <nav>
-        <button onclick="showSection('home')">Home</button>
-        <button onclick="showSection('about')">About</button>
-        <button onclick="showSection('contact')">Contact Us</button>
-        <button onclick="showSection('signup')">Sign Up</button>
-        <button onclick="showSection('login')">Login</button>
-        <button id="logoutBtn" onclick="logout()" style="display:none;">Logout</button>
-    </nav>
-</header></header>
             font-family: 'Inter', Arial, sans-serif;
             background: linear-gradient(135deg, #fff 0%, #f5e9da 40%, #e3f2fd 100%);
             margin: 0;
@@ -131,45 +120,13 @@
 <body>
     <header>
         <span class="logo">PapiloTrade <span class="trusted-badge">Trusted & Secure</span></span>
-    </nav>
-            <form id="listingform">
-            <input type="text" id="seller" placeholder="Your name" required>
-  <input type="text" id="asset" placeholder="Asset (e.g. USDT)" required>
-  <input type="number" id="amount" placeholder="Amount in $" required>
-  <input type="text" id="rate" placeholder="Rate (₦/USD)" required>
-  <input type="text" id="payment" placeholder="Payment Method" required>
-  <button type="submit">Submit Listing</button>
-</form>
-     <form id="listingForm">
-  <input type="text" id="seller" placeholder="Your name" required>
-  <input type="text" id="asset" placeholder="Asset (e.g. USDT)" required>
-  <input type="number" id="amount" placeholder="Amount in $" required>
-  <input type="text" id="rate" placeholder="Rate (₦/USD)" required>
-  <input type="text" id="payment" placeholder="Payment Method" required>
-  <button type="submit">Submit Listing</button>
-</form>
-        <table id="offersTable">
-  <tr>
-    <th>Seller</th><th>Asset</th><th>Amount</th><th>Rate</th><th>Payment</th>
-  </tr>
-</table>
-
-<script>
-  const listings = JSON.parse(localStorage.getItem("listings")) || [];
-  const table = document.getElementById("offersTable");
-
-  listings.forEach(listing => {
-    const row = document.createElement("tr");
-    row.innerHTML = `
-      <td>${listing.seller}</td>
-      <td>${listing.asset}</td>
-      <td>$${listing.amount}</td>
-      <td>₦${listing.rate}/$</td>
-      <td>${listing.payment}</td>
-    `;
-    table.appendChild(row);
-  });
-</script>
+        <nav>
+            <button onclick="showSection('home')">Home</button>
+            <button onclick="showSection('about')">About</button>
+            <button onclick="showSection('contact')">Contact Us</button>
+            <button onclick="showSection('signup')">Sign Up</button>
+            <button onclick="showSection('login')">Login</button>
+            <button id="logoutBtn" onclick="logout()" style="display:none;">Logout</button>
         </nav>
     </header>
 
@@ -210,11 +167,11 @@
     <section class="section" id="buy-sell" style="display:none;">
         <h2>Buy & Sell Gift Cards / Crypto</h2>
         <div style="margin-bottom:1.2rem;">
-            <a href ="list.html"><button>Buy Gift Card with Crypto</button></a>
-            <a href ="list.html"><button>Buy crypto with giftcard</button></a>
-            <a href ="list.html"><button>sell Gift Card to Crypto</button></a>
-            <a href ="list.html"><button>sell cryto </button></a>
-            <a href ="list.html"><button>list cryto/giftcard</button></a>
+            <a href="list.html"><button class="cta-btn">Buy Gift Card with Crypto</button></a>
+            <a href="list.html"><button class="cta-btn">Buy Crypto with Gift Card</button></a>
+            <a href="list.html"><button class="cta-btn">Sell Gift Card to Crypto</button></a>
+            <a href="list.html"><button class="cta-btn">Sell Crypto</button></a>
+            <a href="list.html"><button class="cta-btn">List Crypto/Gift Card</button></a>
         </div>
         <p>
             All trades attract a <span class="highlight">15%</span> platform fee. Enjoy seamless and secure transactions!
@@ -249,7 +206,7 @@
                     <td>$500</td>
                     <td>₦1500/$</td>
                     <td>Bank Transfer</td>
-                    <td><button class="cta-btn" onclick="alert('Buy from user123 functionality coming soon!')">Buy</button></td>
+                    <td><button class="cta-btn" onclick="alert('Buy from admin functionality coming soon!')">Buy</button></td>
                 </tr>
                 <tr>
                     <td>admin</td>
@@ -257,9 +214,8 @@
                     <td>$100</td>
                     <td>₦1300/$</td>
                     <td>Crypto, Bank</td>
-                    <td><button class="cta-btn" onclick="alert('Buy from giftcardpro functionality coming soon!')">Buy</button></td>
+                    <td><button class="cta-btn" onclick="alert('Buy from admin functionality coming soon!')">Buy</button></td>
                 </tr>
-                <!-- More rows can be dynamically added here -->
             </tbody>
         </table>
         <div class="escrow-note">
@@ -289,33 +245,12 @@
     </section>
 
     <!-- Login Section -->
-   <!-- Include Firebase SDK -->
-<script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-app.js"></script>
-<script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-auth.js"></script>
-<script>
-  const firebaseConfig = {
-    apiKey: "your-api-key",
-    authDomain: "your-app.firebaseapp.com",
-    // ... more config
-  };
-
-  const app = firebase.initializeApp(firebaseConfig);
-  const auth = firebase.auth();
-
-  function login() {
-    const email = document.getElementById("email").value;
-    const password = document.getElementById("password").value;
-
-    auth.signInWithEmailAndPassword(email, password)
-      .then((userCredential) => {
-        alert("Login successful!");
-        window.location.href = "dashboard.html";
-      })
-      .catch((error) => {
-        alert("Login failed: " + error.message);
-      });
-  }
-</script>
+    <section class="section" id="login" style="display:none;">
+        <h2>Login</h2>
+        <form onsubmit="login(event)">
+            <input type="text" id="loginUser" placeholder="Username" required style="padding:0.5rem;width:60%;margin-bottom:0.7rem;"><br>
+            <input type="password" id="loginPass" placeholder="Password" required style="padding:0.5rem;width:60%;margin-bottom:0.7rem;"><br>
+            <button class="cta-btn" type="submit">Login</button>
         </form>
     </section>
 
